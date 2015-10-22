@@ -1,45 +1,57 @@
 @extends('core')
 @section('content')
 <div class="container">
+    <br><br>
+    <h4 class="text-center">Login Siswa</h4>
+
     <div class="card card-container">
         <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        <img id="profile-img" class="profile-img-card" src="{{URL::asset('img/default.png')}}" />
         <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin">
+        <form class="form-signin" action="/user/dashboard">
             <span id="reauth-email" class="reauth-email"></span>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <div id="remember" class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
+            <meta name="csrf-token" content="{{ csrf_token() }}" />
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                <div class="input-group">
+                    <input type="email" id="inputEmailLogin" name="email" class="form-control" placeholder="Email address" required autofocus>
+                    <div class="input-group-addon input-group-addon-login"><i class="glyphicon glyphicon-user"></i></div>
+                </div>
             </div>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-        </form><!-- /form -->
-        <a href="#" class="forgot-password">
-            Forgot the password?
-        </a>
-    </div><!-- /card-container -->
+
+            <!-- <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div id="remember" class="checkbox">
+            <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button> -->
+</form><!-- /form -->
+<!-- <a href="#" class="forgot-password">
+Forgot the password?
+</a> -->
+</div><!-- /card-container -->
 </div><!-- /container -->
+
 <style>
-    .card-container.card {
+.card-container.card {
     max-width: 350px;
     padding: 40px 40px;
-    }
+}
 
-    .btn {
+.btn {
     font-weight: 700;
     height: 36px;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
     cursor: default;
-    }
+}
 
-    /*
-    * Card component
-    */
-    .card {
+/*
+* Card component
+*/
+.card {
     /*background-color: #F7F7F7;*/
     /* just in case there no content*/
     padding: 20px 25px 30px;
@@ -53,9 +65,9 @@
     -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
 
-    }
+}
 
-    .profile-img-card {
+.profile-img-card {
     width: 96px;
     height: 96px;
     margin: 0 auto 10px;
@@ -63,20 +75,20 @@
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
-    }
+}
 
-    /*
-    * Form styles
-    */
-    .profile-name-card {
+/*
+* Form styles
+*/
+.profile-name-card {
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     margin: 10px 0 0;
     min-height: 1em;
-    }
+}
 
-    .reauth-email {
+.reauth-email {
     display: block;
     color: #404040;
     line-height: 2;
@@ -89,20 +101,20 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    }
+}
 
-    .form-signin #inputEmail,
-    .form-signin #inputPassword {
+.form-signin #inputEmail,
+.form-signin #inputPassword {
     direction: ltr;
     height: 44px;
     font-size: 16px;
     padding-left: 10px;
-    }
+}
 
-    .form-signin input[type=email],
-    .form-signin input[type=password],
-    .form-signin input[type=text],
-    .form-signin button {
+.form-signin input[type=email],
+.form-signin input[type=password],
+.form-signin input[type=text],
+.form-signin button {
     width: 100%;
     display: block;
     margin-bottom: 10px;
@@ -111,16 +123,16 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    }
+}
 
-    .form-signin .form-control:focus {
+.form-signin .form-control:focus {
     border-color: rgb(104, 145, 162);
     outline: 0;
     /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);*/
-    }
+}
 
-    .btn.btn-signin {
+.btn.btn-signin {
     /*background-color: #4d90fe; */
     /*background-color: rgb(104, 145, 162);*/
     /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
@@ -136,22 +148,22 @@
     -moz-transition: all 0.218s;
     -webkit-transition: all 0.218s;
     transition: all 0.218s;
-    }
+}
 
-    .btn.btn-signin:hover,
-    .btn.btn-signin:active,
-    .btn.btn-signin:focus {
+.btn.btn-signin:hover,
+.btn.btn-signin:active,
+.btn.btn-signin:focus {
     /*background-color: rgb(12, 97, 33);*/
-    }
+}
 
-    .forgot-password {
+.forgot-password {
     color: rgb(104, 145, 162);
-    }
+}
 
-    .forgot-password:hover,
-    .forgot-password:active,
-    .forgot-password:focus{
+.forgot-password:hover,
+.forgot-password:active,
+.forgot-password:focus{
     color: rgb(12, 97, 33);
-    }
+}
 </style>
 @stop

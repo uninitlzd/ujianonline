@@ -1,4 +1,4 @@
-@include('fragments/head')
+@include('fragments/user/head')
 @yield('navigation')
 @yield('content')
-@include('fragments/footer')
+@include('fragments/user/footer')
