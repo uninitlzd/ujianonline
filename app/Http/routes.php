@@ -31,9 +31,11 @@ Route::group(['prefix' => 'admin'], function() {
         return view('admin/matapelajaran/view');
     });
 
-    Route::get('tahunajaran', function() {
-        return view('admin/tahunajaran/view');
-    });
+    Route::get('tahunajaran', 'TahunAjaranController@index');
+    Route::post('tahunajaran/edit', 'TahunAjaranController@edit');
+    Route::post('tahunajaran/new', ['as' => 'tambahThnAjaran', 'uses' => 'TahunAjaranController@store']);
+    Route::put('tahunajaran/editstatus/{id}', 'TahunAjaranController@editStatus');
+    Route::delete('tahunajaran/delete/{id}', 'TahunAjaranController@destroy');
 
     Route::get('kelas', function() {
         return view('admin/kelas/view');

@@ -16,6 +16,7 @@ class CreateTahunajaranTable extends Migration
             $table->increments('id');
             $table->string('tahunAjaran');
             $table->integer('aktif');
+            $table->timestamps();
         });
     }
 

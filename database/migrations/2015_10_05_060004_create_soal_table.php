@@ -21,6 +21,7 @@ class CreateSoalTable extends Migration
             foreach($tables as $t) {
               $table->string($t);
             }
+            $table->timestamps();
         });
     }
 

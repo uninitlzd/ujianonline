@@ -52,6 +52,7 @@
                     <form class="form form-vertical">
                         <table class="table table-responsive table-striped">
                             <thead>
+                                <th></th>
                                 <th>NISN</th>
                                 <th>No. Induk</th>
                                 <th>Nama</th>

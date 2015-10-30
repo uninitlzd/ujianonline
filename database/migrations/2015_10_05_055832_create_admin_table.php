@@ -14,7 +14,7 @@ class CreateAdminTable extends Migration
     {
         Schema::create('tblAdmin', function (Blueprint $table) {
             $table->increments('id');
-            $tables = array('emailAdmin', 'passwordAdmin');
+            $tables = array('email', 'password');
             foreach($tables as $t) {
               $table->string($t);
             }

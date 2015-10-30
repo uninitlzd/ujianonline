@@ -30,6 +30,13 @@
                     <option value="">A</option>
                     <option value="">A</option>
                 </select>
+                <br>
+                <label for="mapelSelect">Mata Pelajaran</label>
+                <select class="form-control" id="mapelSelect" name="">
+                    <option value="">Matematika</option>
+                    <option value="">A</option>
+                    <option value="">A</option>
+                </select>
               </div>
 
             </div>
@@ -48,15 +55,15 @@
                     <form class="form form-vertical">
                         <table class="table table-responsive table-striped">
                             <thead>
-                                <th></th>
+                                <th><input type="checkbox" name="name" class="selectAll form-control" value=""></th>
                                 <th>NISN</th>
                                 <th>No. Induk</th>
                                 <th>Nama</th>
                                 <th></th>
                             </thead>
-                            <tbody>
+                            <tbody class="dataSelect">
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="form-control"></td>
                                     <td>21319381293</td>
                                     <td>9839</td>
                                     <td>Alfredo Eka Wibowo</td>
@@ -64,7 +71,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="form-control"></td>
                                     <td>21319381293</td>
                                     <td>9839</td>
                                     <td>Alfredo Eka Wibowo</td>
@@ -72,7 +79,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="form-control"></td>
                                     <td>21319381293</td>
                                     <td>9839</td>
                                     <td>Alfredo Eka Wibowo</td>
@@ -80,7 +87,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="form-control"></td>
                                     <td>21319381293</td>
                                     <td>9839</td>
                                     <td>Alfredo Eka Wibowo</td>
@@ -88,7 +95,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="form-control"></td>
                                     <td>21319381293</td>
                                     <td>9839</td>
                                     <td>Alfredo Eka Wibowo</td>
@@ -96,7 +103,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="form-control"></td>
                                     <td>21319381293</td>
                                     <td>9839</td>
                                     <td>Alfredo Eka Wibowo</td>
@@ -104,7 +111,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" class="form-control" ></td>
                                     <td>21319381293</td>
                                     <td>9839</td>
                                     <td>Alfredo Eka Wibowo</td>

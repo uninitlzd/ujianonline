@@ -14,10 +14,11 @@ class CreateSiswaTable extends Migration
     {
         Schema::create('tblSiswa', function (Blueprint $table) {
             $table->string('NISN')->unique()->primary();
-            $tables = array('noInduk', 'nama', 'alamat', 'email', 'noTelp', 'passwordLogin', 'foto');
+            $tables = array('noInduk', 'nama', 'alamat', 'email', 'noTelp', 'password', 'foto');
             foreach($tables as $t) {
               $table->string($t);
             }
+            $table->timestamps();
         });
     }
 

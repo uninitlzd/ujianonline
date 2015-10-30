@@ -20,6 +20,7 @@ class CreateNilaiTable extends Migration
               $table->integer($t);
             }
             $table->dateTime('tglUjian');
+            $table->timestamps();
         });
     }
 

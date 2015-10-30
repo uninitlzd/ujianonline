@@ -38,9 +38,12 @@ var options = {
                     if (flag == 1) {
                         $('#profile-img').attr('src', 'http://localhost:8000/assets/img/test.png');
                         //console.log(img);
+                        if($('#inputPasswordLogin').length == 0) {
                         $('<input type="password" id="inputPasswordLogin" name="password" class="form-control" placeholder="Password" required>').hide().appendTo('.form-signin').fadeIn(900, function() {
                             $('<br><div class="text-center"><input type="submit" value="Login" name="password" class="btn btn-primary"></div>').hide().appendTo('.form-signin').delay(200).fadeIn(700);
                         });
+
+                    }
 
                         if(($('.input-group-addon-login i.glyphicon-remove').length) || ($('.input-group-addon-login i.fa').length)) {
                             console.log('hit');
@@ -77,3 +80,31 @@ var options = {
 $('#inputEmailLogin').typeWatch(options);
 
 //-!
+
+/*Editable Element*/
+$(document).ready(function() {
+    $('.tahunAjaran.ed-elem').editable({
+        type : 'text',
+        url  : 'tahunajaran/edit',
+        name : 'tahunAjaran'
+    });
+
+    $('.kelasEdt.ed-elem').editable({
+        type : 'text',
+        url  : 'tahunajaran/edit',
+        name : 'tahunAjaran'
+    });
+
+
+
+    $('.tahunAjaran').mask("0000/0000", {placeholder: "____/____"});
+
+    $('.selectAll').click(function() {
+        if($('.selectAll').prop('checked')) {
+            $('.dataSelect tr td input[type=checkbox]').each(function(index) { $(this).prop('checked', true) });
+        } else {
+            $('.dataSelect tr td input[type=checkbox]').each(function(index) { $(this).attr('checked', false) });
+        }
+    });
+});
+/*END*/

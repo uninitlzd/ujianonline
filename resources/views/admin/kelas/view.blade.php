@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr>
+                        <tr class="kelasEdt .ed-elem">
                             <td>X RPL</td>
                             <td>1</td>
                         </tr>
