@@ -1,11 +1,12 @@
 
-$(document).ready(function(){$(".alert").addClass("in").fadeOut(4500);
+$(document).ready(function(){
+    $.fn.editable.defaults.mode = 'inline';
 
-/* swap open/close side menu icons */
-$('[data-toggle=collapse]').click(function(){
-    // toggle icon
-    $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
-});
+    /* swap open/close side menu icons */
+    $('[data-toggle=collapse]').click(function(){
+        // toggle icon
+        $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+    });
 });
 
 $.ajaxSetup({
@@ -79,32 +80,35 @@ var options = {
 
 $('#inputEmailLogin').typeWatch(options);
 
-//-!
+$('.tingkat').change(function(data) {
+    getKelasByTingkat();
+});
 
-/*Editable Element*/
-$(document).ready(function() {
-    $('.tahunAjaran.ed-elem').editable({
-        type : 'text',
-        url  : 'tahunajaran/edit',
-        name : 'tahunAjaran'
-    });
-
-    $('.kelasEdt.ed-elem').editable({
-        type : 'text',
-        url  : 'tahunajaran/edit',
-        name : 'tahunAjaran'
-    });
-
-
-
-    $('.tahunAjaran').mask("0000/0000", {placeholder: "____/____"});
-
-    $('.selectAll').click(function() {
-        if($('.selectAll').prop('checked')) {
-            $('.dataSelect tr td input[type=checkbox]').each(function(index) { $(this).prop('checked', true) });
-        } else {
-            $('.dataSelect tr td input[type=checkbox]').each(function(index) { $(this).attr('checked', false) });
+function getKelasByTingkat() {
+    var tingkat = $('.tingkat').val();
+    var nisn = $('.nisn_before').val();
+    $.ajax({
+        method : 'get',
+        url : 'http://localhost:8000/admin/parse/get_kelas_by_tingkat/'+nisn+'/'+tingkat,
+        success : function(data) {
+            $('#kelas').attr('disabled', false).html(data);
         }
     });
-});
+}
+//-!
+
+/*Daftar Siswa Filter*/
+function filterSiswaByKelas() {
+    var kelas = $('#kelasFilter').val();
+    $.ajax({
+        method : 'get',
+        url : 'http://localhost:8000/admin/parse/filterizeDaftarSiswa/'+kelas,
+        success : function(data) {
+            $('#dataSiswa').html(data)
+        }
+    });
+}
+/*--!!*/
+
+/*Editable Element*/
 /*END*/

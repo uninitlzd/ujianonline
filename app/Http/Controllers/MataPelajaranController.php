@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\TahunAjaran;
+use App\MataPelajaran;
 
-class TahunAjaranController extends Controller
+class MataPelajaranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class TahunAjaranController extends Controller
      */
     public function index()
     {
-        $data = TahunAjaran::select('id', 'tahunAjaran', 'aktif')->get();
-        return view('admin/tahunajaran/view')->with('tahunajaran', $data);
+        $data = MataPelajaran::get();
+        return view('admin/matapelajaran/view')->with('data', $data);
     }
 
     /**
@@ -39,11 +39,16 @@ class TahunAjaranController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-                'tahunAjarans' => 'required|unique:tbltahunajaran,tahunAjaran'
-            ]);
-        $tahunAjaran = $request->tahunAjarans;
-        TahunAjaran::insert(['tahunAjaran' => $tahunAjaran]);
+            'mapel' => 'required'
+        ]);
+
+        MataPelajaran::insert([
+            'mapel' => $request->mapel
+        ]);
+
         return back();
+
+
     }
 
     /**
@@ -63,22 +68,11 @@ class TahunAjaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        $input = $request->all();
-        $this->validate($request, [
-                'tahunAjaran' => 'required|unique:tbltahunajaran,tahunAjaran'
-            ]);
-        $data = TahunAjaran::find($input['id']);
-        $data->tahunAjaran = $input['tahunAjaran'];
-        $data->save();
-        return redirect(route('getTahunAjaran'));
-    }
-
-    public function editView($id)
-    {
-        $data = TahunAjaran::findOrFail($id);
-        return view('admin/tahunajaran/edit')->with('data', $data);
+        $data = MataPelajaran::findOrFail($id);
+        return view('admin/matapelajaran/edit')->with('data', $data);
+        //return $data;
     }
 
     /**
@@ -88,18 +82,18 @@ class TahunAjaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function editStatus(Request $request, $id)
-    {
-        $data = TahunAjaran::find($id);
-        $data->aktif = $request['status'];
-        $data->save();
-        return back();
-    }
-
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'mapel' => 'required|unique:tblmapel,mapel'
+        ]);
+
+        MataPelajaran::find($id)
+                ->update([
+                    'mapel' => $request->mapel
+                ]);
+
+        return back();
     }
 
     /**
@@ -110,7 +104,7 @@ class TahunAjaranController extends Controller
      */
     public function destroy($id)
     {
-        TahunAjaran::where('id', $id)->delete();
-        return back();
+        MataPelajaran::findOrFail($id)->delete();
+        return redirect(route('getMapel'));
     }
 }

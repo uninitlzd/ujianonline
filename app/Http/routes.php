@@ -19,6 +19,24 @@ Route::post('check-email', 'SiswaController@checkEmail');
 
 Route::group(['prefix' => 'admin'], function() {
 
+    Route::group(['prefix' => 'parse'], function() {
+
+        Route::get('get_kelas_by_tingkat/{nisn}/{tingkat}', [
+            'as' => 'getKelasByTingkat',
+            'uses' => 'KelasController@getKelasByTingkat'
+        ]);
+
+        Route::get('filterizeDaftarSiswa/{kelas}', [
+            'as' => 'getFilterSiswaByKelas',
+            'uses' => 'ParserController@getFilterSiswaByKelas'
+        ]);
+
+        Route::get('filterKD/{mapel}/{tingkat?}', [
+            'as' => 'filterKD',
+            'uses' => 'ParserController@getFilterKD'
+        ]);
+    });
+
     Route::get('login', function() {
         return view('admin/login');
     });
@@ -27,31 +45,113 @@ Route::group(['prefix' => 'admin'], function() {
         return view('admin/dashboard');
     });
 
-    Route::get('matapelajaran', function() {
-        return view('admin/matapelajaran/view');
-    });
+    Route::get('matapelajaran', [
+        'uses' => 'MataPelajaranController@index',
+        'as' => 'getMapel'
+    ]);
 
-    Route::get('tahunajaran', 'TahunAjaranController@index');
-    Route::post('tahunajaran/edit', 'TahunAjaranController@edit');
-    Route::post('tahunajaran/new', ['as' => 'tambahThnAjaran', 'uses' => 'TahunAjaranController@store']);
+    Route::get('matapelajaran/edit/{id}', [
+        'uses' => 'MataPelajaranController@edit',
+        'as' => 'getEditMapel'
+    ]);
+
+    Route::post('matapelajaran/new', [
+        'uses' => 'MataPelajaranController@store',
+        'as' => 'storeMapel'
+    ]);
+
+    Route::post('matapelajaran/edit/{id}', [
+        'uses' => 'MataPelajaranController@update',
+        'as' => 'updateMapel'
+    ]);
+
+    Route::delete('matapelajaran/delete/{id}', [
+        'uses' => 'MataPelajaranController@destroy',
+        'as' => 'deleteMapel'
+    ]);
+
+    Route::get('tahunajaran', array(
+        'uses' => 'TahunAjaranController@index',
+        'as' => 'getTahunAjaran'
+    ));
+
+    Route::get('tahunajaran/edit/{id}', 'TahunAjaranController@editView');
+
+    Route::post('/tahunajaran/edit', array(
+        'uses' => 'TahunAjaranController@edit',
+        'as' => 'tahunAjaranDoEdit'
+    ));
+
+    Route::post('tahunajaran/new', [
+        'as' => 'tambahThnAjaran',
+        'uses' => 'TahunAjaranController@store'
+        ]);
+
     Route::put('tahunajaran/editstatus/{id}', 'TahunAjaranController@editStatus');
+
     Route::delete('tahunajaran/delete/{id}', 'TahunAjaranController@destroy');
 
-    Route::get('kelas', function() {
-        return view('admin/kelas/view');
-    });
+    Route::get('kelas', array(
+        'uses' => 'KelasController@index',
+        'as' => 'getKelasView'
+    ));
 
-    Route::get('daftarsiswa', function() {
-        return view('admin/daftarsiswa/view');
-    });
+    Route::get('kelas/edit/{kelas}', array(
+        'uses' => 'KelasController@edit',
+        'as' => 'getKelasEdit'
+    ));
 
-    Route::get('daftarsiswa/insert', function() {
-        return view('admin/daftarsiswa/insert');
-    });
+    Route::post('/kelas/edit/{kelas}', array(
+        'uses' => 'KelasController@update',
+        'as' => 'kelasDoEdit'
+    ));
 
-    Route::get('kd', function() {
-        return view('admin/kd/view');
-    });
+    Route::post('kelas/new', array(
+        'uses' => 'KelasController@store',
+        'as' => 'doStoreKelas'
+    ));
+
+    Route::delete('kelas/delete/{id}', 'KelasController@destroy');
+
+    Route::get('daftarsiswa', [
+        'uses' => 'SiswaController@index',
+        'as' => 'getDaftarSiswa'
+    ]);
+
+    Route::get('daftarsiswa/profile/{nisn}', [
+        'uses' => 'SiswaController@show',
+        'as' => 'getProfileSiswa'
+    ]);
+
+    Route::get('daftarsiswa/create', [
+        'uses' => 'SiswaController@create',
+        'as' => 'createDaftarSiswa'
+    ]);
+
+    Route::post('daftarsiswa/store', [
+        'uses' => 'SiswaController@store',
+        'as' => 'storeDaftarSiswa'
+    ]);
+
+    Route::post('daftarsiswa/update/{nisn}', [
+        'uses' => 'SiswaController@update',
+        'as' => 'updateDaftarSiswa'
+    ]);
+
+    Route::get('daftarsiswa/edit/{nisn}', [
+        'uses' => 'SiswaController@edit',
+        'as' => 'editDaftarSiswa'
+    ]);
+
+    Route::delete('daftarsiswa/delete/{nisn}', [
+        'uses' => 'SiswaController@destroy',
+        'as' => 'deleteSiswa'
+    ]);
+
+    Route::get('kd', [
+        'uses' => 'KDController@index',
+        'as' => 'getKD'
+    ]);
 
     Route::get('soal', function() {
         return view('admin/soal/view');

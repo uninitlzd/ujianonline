@@ -20,21 +20,26 @@
                         <tr>
                             <th class="text-center">Kelas</th>
                             <th class="text-center">Tingkat</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
+                        @foreach($data as $d)
                         <tr class="kelasEdt .ed-elem">
-                            <td>X RPL</td>
-                            <td>1</td>
+                            <td>{{$d->kelas}}</td>
+                            <td>{{$d->tingkat}}</td>
+                            <td>
+                                <a href="kelas/edit/{{$d->kelas}}" class="btn btn-xs btn-default">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                                <form action="kelas/delete/{{$d->kelas}}" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    {{csrf_field()}}
+                                    <button type="submit" class="btn btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+                                </form>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>XI RPL</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td>XII RPL</td>
-                            <td>3</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -50,18 +55,19 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form class="form form-vertical">
+                    <form class="form form-vertical" action="{{route('doStoreKelas')}}" method="post">
+                        {{csrf_field()}}
                         <div class="control-group">
                             <label>Kelas</label>
                             <div class="controls">
-                                <input type="text" class="form-control" placeholder="Nama Kelas">
+                                <input type="text" name="kelas" class="form-control" placeholder="Nama Kelas">
                             </div>
                         </div>
                         <br>
                         <div class="control-group">
                             <label>Tingkat</label>
                             <div class="controls">
-                                <input type="text" class="form-control" placeholder="Tingkat">
+                                <input type="number" min="1" max="3" name="tingkat" class="form-control" placeholder="Tingkat">
                             </div>
                         </div>
                         <div class="control-group">
@@ -76,6 +82,14 @@
                 </div>
                 <!--/panel content-->
             </div>
+            @if (count($errors) > 0)
+            @foreach ($errors->all() as $error)
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error!</strong> {{$error}}
+            </div>
+            @endforeach
+            @endif
             <!--/panel-->
 
 

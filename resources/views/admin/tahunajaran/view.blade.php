@@ -26,7 +26,7 @@
                     <tbody class="text-center">
                         @foreach($tahunajaran as $ta)
                         <tr>
-                            <td><a data-pk="{{$ta->id}}" class="tahunAjaran ed-elem">{{$ta->tahunAjaran}}</a>
+                            <td><a data-pk="{{$ta->id}}" class="tahunAjaran ed-elem" data-name="tahunAjaran">{{$ta->tahunAjaran}}</a>
                                 <meta name="csrf-token" content="{{ csrf_token() }}" />
                             </td>
                             <td>
@@ -45,9 +45,11 @@
                                     <input type="submit" value="Nonaktifkan" class="btn btn-danger">
                                 </form>
                                 @endif
-
                             </td>
                             <td>
+                                <a href="tahunajaran/edit/{{$ta->id}}" class="btn btn-xs btn-default">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
                                 <form action="tahunajaran/delete/{{$ta->id}}" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="status" value="1">
@@ -76,7 +78,7 @@
                         <div class="control-group">
                             <label>Tahun Ajaran</label>
                             <div class="controls">
-                                <input type="text" class="tahunAjaran form-control" name="tahunAjaran" placeholder="Periode Tahun Ajaran">
+                                <input type="text" class="tahunAjaran form-control" name="tahunAjarans" placeholder="Periode Tahun Ajaran">
                             </div>
                         </div>
                         <div class="control-group">
@@ -93,6 +95,17 @@
                 <!--/panel content-->
             </div>
             <!--/panel-->
+
+            @if (count($errors) > 0)
+            @foreach ($errors->all() as $error)
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error!</strong> {{$error}}
+            </div>
+            @endforeach
+            @endif
+
+
 
 
             <!--/panel-->

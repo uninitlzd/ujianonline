@@ -98,7 +98,7 @@ if (typeof jQuery === 'undefined') {
 
   Alert.VERSION = '3.3.5'
 
-  Alert.TRANSITION_DURATION = 150
+  Alert.TRANSITION_DURATION = 700
 
   Alert.prototype.close = function (e) {
     var $this    = $(this)

@@ -1,9 +1,7 @@
 <div class="col-sm-3">
     <!-- Left column -->
     <a href="#"><strong><i class="glyphicon glyphicon-briefcase"></i> Data Siswa dan Soal-soal</strong></a>
-
     <hr>
-
     <ul class="nav nav-stacked">
         <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu"> Siswa <i class="glyphicon glyphicon-chevron-down"></i></a>
             <ul class="nav nav-stacked collapse" id="userMenu">
@@ -22,34 +20,22 @@
             </ul>
         </li>
     </ul>
-
     <hr>
-
     <a href="#"><strong><i class="glyphicon glyphicon-flag"></i> Ujian</strong></a>
-
     <hr>
-
     <ul class="nav nav-pills nav-stacked">
         <li class="nav-header"></li>
         <li><a href="#"><i class="glyphicon glyphicon-time"></i> Jadwal Ujian</a></li>
         <li><a href="/admin/buatsoal"><i class="glyphicon glyphicon-plus"></i> Buat Soal</a></li>
         <li><a href="/admin/hasilujian"><i class="glyphicon glyphicon-book"></i> Laporan Hasil Ujian</a></li>
-
     </ul>
-
     <hr>
-
     <a href="#"><strong><i class="glyphicon glyphicon-knight"></i> Admin</strong></a>
-
     <hr>
-
     <ul class="nav nav-pills nav-stacked">
         <li class="nav-header"></li>
         <li><a href="#"><i class="glyphicon glyphicon-cog"></i> User Settings</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-user"></i> Identitas</a></li>
-
     </ul>
-
     <hr>
-
 </div>

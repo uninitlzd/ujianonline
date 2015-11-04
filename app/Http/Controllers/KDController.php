@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\TahunAjaran;
+use App\KD;
+use App\MataPelajaran;
 
-class TahunAjaranController extends Controller
+class KDController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class TahunAjaranController extends Controller
      */
     public function index()
     {
-        $data = TahunAjaran::select('id', 'tahunAjaran', 'aktif')->get();
-        return view('admin/tahunajaran/view')->with('tahunajaran', $data);
+        $mapel = MataPelajaran::get();
+        return view('admin/kd/view')->with('mapel', $mapel);
     }
 
     /**
@@ -38,12 +39,7 @@ class TahunAjaranController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-                'tahunAjarans' => 'required|unique:tbltahunajaran,tahunAjaran'
-            ]);
-        $tahunAjaran = $request->tahunAjarans;
-        TahunAjaran::insert(['tahunAjaran' => $tahunAjaran]);
-        return back();
+        //
     }
 
     /**
@@ -63,22 +59,9 @@ class TahunAjaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        $input = $request->all();
-        $this->validate($request, [
-                'tahunAjaran' => 'required|unique:tbltahunajaran,tahunAjaran'
-            ]);
-        $data = TahunAjaran::find($input['id']);
-        $data->tahunAjaran = $input['tahunAjaran'];
-        $data->save();
-        return redirect(route('getTahunAjaran'));
-    }
-
-    public function editView($id)
-    {
-        $data = TahunAjaran::findOrFail($id);
-        return view('admin/tahunajaran/edit')->with('data', $data);
+        //
     }
 
     /**
@@ -88,15 +71,6 @@ class TahunAjaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function editStatus(Request $request, $id)
-    {
-        $data = TahunAjaran::find($id);
-        $data->aktif = $request['status'];
-        $data->save();
-        return back();
-    }
-
     public function update(Request $request, $id)
     {
         //
@@ -110,7 +84,6 @@ class TahunAjaranController extends Controller
      */
     public function destroy($id)
     {
-        TahunAjaran::where('id', $id)->delete();
-        return back();
+        //
     }
 }

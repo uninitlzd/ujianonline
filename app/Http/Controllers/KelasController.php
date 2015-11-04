@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\TahunAjaran;
+use App\Kelas;
+use App\KelasSiswa;
+use App\Siswa;
 
-class TahunAjaranController extends Controller
+class KelasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +18,8 @@ class TahunAjaranController extends Controller
      */
     public function index()
     {
-        $data = TahunAjaran::select('id', 'tahunAjaran', 'aktif')->get();
-        return view('admin/tahunajaran/view')->with('tahunajaran', $data);
+        $data = Kelas::all();
+        return view('admin/kelas/view')->with('data', $data);
     }
 
     /**
@@ -39,10 +41,11 @@ class TahunAjaranController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-                'tahunAjarans' => 'required|unique:tbltahunajaran,tahunAjaran'
+                'kelas' => 'required|unique:tblkelas,kelas',
+                'tingkat' => 'required'
             ]);
-        $tahunAjaran = $request->tahunAjarans;
-        TahunAjaran::insert(['tahunAjaran' => $tahunAjaran]);
+
+        Kelas::insert(['kelas' => $request->kelas, 'tingkat' => $request->tingkat]);
         return back();
     }
 
@@ -63,22 +66,10 @@ class TahunAjaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($kelas)
     {
-        $input = $request->all();
-        $this->validate($request, [
-                'tahunAjaran' => 'required|unique:tbltahunajaran,tahunAjaran'
-            ]);
-        $data = TahunAjaran::find($input['id']);
-        $data->tahunAjaran = $input['tahunAjaran'];
-        $data->save();
-        return redirect(route('getTahunAjaran'));
-    }
-
-    public function editView($id)
-    {
-        $data = TahunAjaran::findOrFail($id);
-        return view('admin/tahunajaran/edit')->with('data', $data);
+        $data = Kelas::where('kelas', $kelas)->firstOrFail();
+        return view('admin/kelas/edit')->with('data', $data);
     }
 
     /**
@@ -88,18 +79,18 @@ class TahunAjaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function editStatus(Request $request, $id)
+    public function update(Request $request, $kelas)
     {
-        $data = TahunAjaran::find($id);
-        $data->aktif = $request['status'];
-        $data->save();
-        return back();
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
+        $input = $request->all();
+        $this->validate($request, [
+                'kelas' => 'required|unique:tblkelas,kelas',
+                'tingkat' => 'required'
+            ]);
+        $data = Kelas::where('kelas', $kelas)->update([
+            'kelas' => $input['kelas'],
+            'tingkat' => $input['tingkat']
+        ]);
+        return redirect(route('getKelasView'));
     }
 
     /**
@@ -110,7 +101,14 @@ class TahunAjaranController extends Controller
      */
     public function destroy($id)
     {
-        TahunAjaran::where('id', $id)->delete();
+        Kelas::where('kelas', $id)->delete();
         return back();
+    }
+
+    public function getKelasByTingkat($nisn, $tingkat)
+    {
+        $data = Kelas::where('tingkat', $tingkat)->select('kelas')->get();
+        $kelasSiswa = KelasSiswa::where('NISN', $nisn)->select('kelas')->firstOrFail();
+        return view('admin/parsed/getTingkat')->with(['data' => $data, 'kelasSiswa' => $kelasSiswa]);
     }
 }

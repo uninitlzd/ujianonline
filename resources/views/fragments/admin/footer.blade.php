@@ -6,4 +6,6 @@
   <script src="{{URL::asset('js/scripts.js')}}"></script>
   <script src="{{URL::asset('js/bootstrap-editable.js')}}"></script>
   <script src="{{URL::asset('js/jquery.mask.min.js')}}"></script>
+  <script src="{{URL::asset('js/laravel.js')}}"></script>
+  @yield('moreScript')
 </html>

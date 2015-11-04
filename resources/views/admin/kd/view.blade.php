@@ -4,79 +4,68 @@
 
     <!-- column 2 -->
     <ol class="breadcrumb">
-      <li><a href="/admin/dashboard"><i class="glyphicon glyphicon-dashboard"></i><b> Dashboard</b></a></li>
-      <li>Naskah Soal</li>
-      <li>Kompetensi Dasar</li>
+        <li><a href="/admin/dashboard"><i class="glyphicon glyphicon-dashboard"></i><b> Dashboard</b></a></li>
+        <li>Siswa</li>
+        <li>Daftar Siswa</li>
     </ol>
 
     <hr>
 
     <div class="row">
         <!-- center left-->
-        <div class="col-md-8">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Mata Pelajaran</th>
-                            <th class="text-center">Kompetensi Dasar</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr>
-                            <td>1</td>
-                            <td>Matematika</td>
-                            <td>Menghitung bangun ruang</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="">Filter</h5>
+                </div>
+                <div class="panel-body">
+                    <label for="mapel">Mata Pelajaran</label>
+                    <select class="form-control" id="mapel" name="mapel">
+                        <option value="" selected>Pilih Mapel</option>
+                        @foreach($mapel as $m)
+                            <option value="{{$m->id}}">{{$m->mapel}}</option>
+                        @endforeach
+                    </select>
+                    <br>
+                    <label for="tingkat">Tingkat</label>
+                    <select class="form-control" id="tingkat" name="tingkat">
+                        <option value="0" selected>Pilih Tingkat</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="panel-footer">
+
+                </div>
             </div>
+            <a href="daftarsiswa/create" class="btn btn-success form-control">Tambah K.D.</a>
         </div>
         <!--/col-->
-        <div class="col-md-4">
-
+        <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="glyphicon glyphicon-plus pull-right"></i>
-                        <h5>Tambah K.D.</h5>
+                        <h5>Daftar Kompetensi Dasar</h5>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form class="form form-vertical">
-                        <div class="control-group">
-                            <label>Mata Pelajaran</label>
-                            <div class="controls">
-                                <select name="" class="form-control" id="">
-                                    <option value="">Matematika</option>
-                                    <option value="">Bahasa Indonesia</option>
-                                    <option value="">Bahasa Inggris</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="control-group">
-                            <label>Kompetensi Dasar</label>
-                            <div class="controls">
-                                <textarea class="form-control" name="name" rows="4" cols="40"></textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label></label>
-                            <div class="controls">
-                                <button type="submit" class="btn btn-primary">
-                                    Tambah
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                            <th>ID</th>
+                            <th>Kompetensi Dasar</th>
+                        </thead>
+                        <tbody id="dataKD">
+                            <tr>
+                                <td>1</td>
+                                <td>A</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                 </div>
                 <!--/panel content-->
             </div>
-            <!--/panel-->
-
-
             <!--/panel-->
 
         </div>
@@ -87,4 +76,51 @@
 
 </div>
 
+@stop
+@section('moreScript')
+    <script>
+
+    $('#mapel').change(function() {
+        var idMapel, tingkat;
+
+        idMapel = $(this).val();
+        tingkat = $('#tingkat').val();
+
+        
+
+        if((tingkat == 0) && (idMapel != 0)) {
+            $.ajax({
+                method : 'get',
+                url : 'http://localhost:8000/admin/parse/filterKD/'+idMapel,
+                success : function(data) {
+                    $('#dataKD').html(data);
+                }
+            });
+        } else {
+            $.ajax({
+                method : 'get',
+                url : 'http://localhost:8000/admin/parse/filterKD/'+idMapel+'/'+tingkat,
+                success : function(data) {
+                    $('#dataKD').html(data);
+                }
+            });
+        }
+    });
+
+    $('#tingkat').change(function() {
+        var idMapel, tingkat;
+
+        idMapel = $('#mapel').val();
+        tingkat = $('#tingkat').val();
+
+        $.ajax({
+            method : 'get',
+            url : 'http://localhost:8000/admin/parse/filterKD/'+idMapel+'/'+tingkat,
+            success : function(data) {
+                $('#dataKD').html(data);
+            }
+        });
+    });
+
+    </script>
 @stop
